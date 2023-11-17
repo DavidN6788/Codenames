@@ -1,4 +1,4 @@
-class Gueser:
+class Guesser:
     def __init__(self, team, board):
         self.team = team
         # Board object
