@@ -4,9 +4,7 @@ import random
 
 # Gensim word2vec model pretrained on 500000 Goolge news articles
 import gensim
-model = gensim.models.KeyedVectors.load_word2vec_format(
-    '"C:\Users\nguye\Downloads\CodenamesAI\GoogleNews-vectors-negative300.bin"', binary=True, limit=1000000
-)
+model = gensim.models.KeyedVectors.load_word2vec_format('C:/Users/nguye/Downloads/CodenamesAI/GoogleNews-vectors-negative300.bin', binary=True, limit=1000000)
 
 class Board():
     def __init__(self):
