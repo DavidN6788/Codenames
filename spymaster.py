@@ -54,4 +54,6 @@ class Spymaster:
             if similarity_score > best_score:
                 best_clue = v
                 best_score = similarity_score
+        # Remove clue from vocab to avoid duplicate clues
+        vocab.remove(best_clue)
         return best_clue
