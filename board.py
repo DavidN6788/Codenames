@@ -1,6 +1,7 @@
 from tabulate import tabulate
 import numpy as np
 import random
+import copy
 
 # Gensim word2vec model pretrained on 500000 Goolge news articles
 import gensim
@@ -38,7 +39,9 @@ class Board():
         print(table)
 
     def print_spymaster_board(self):
-        all_words = [f"'{word} ({key})'" for key, value in self.board.items() for word in value]
+        # Create a deep copy so that the display does not change
+        board_copy = copy.deepcopy(self.board)
+        all_words = [f"'{word} ({key})'" for key, value in board_copy.items() for word in value]
         board_words = np.array(all_words).reshape(5, 5).copy()
         table = tabulate(board_words, tablefmt="fancy_grid")
         print(table)

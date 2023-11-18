@@ -1,3 +1,4 @@
+import random
 import re
 
 class Spymaster:
@@ -8,12 +9,16 @@ class Spymaster:
         self.team = 'red' if team == 'red' else 'blue'
         self.enemy = 'blue' if self.team == 'red' else 'red'
 
-    def generate_clue(self):
+    # Generate best clue and the number of intended words
+    def generate_clue_and_number(self):
         team_words = self.curr_board.get(self.team)
         bad_words = self.curr_board.get(self.enemy) + self.curr_board.get('neutral') + self.curr_board.get('assassin')
         vocab = self.get_word2vec_vocab(team_words)
+
+        # For now sum of similarity algorithm and random generator intended words (1, 2, or 3)
         best_clue = self.sum_of_similarity_algo(vocab, team_words, bad_words)
-        return best_clue
+        best_number = random.choice([1, 2, 3])
+        return best_clue, best_number
 
     def get_word2vec_vocab(self, team_words):
         vocab = []
@@ -32,6 +37,8 @@ class Spymaster:
                     vocab.append(curr_word)
         return vocab
 
+    # Simple algorithm to generate a clue that encapsulates all team words
+    # whilst avoiding all bad words.
     def sum_of_similarity_algo(self, vocab, team_words, bad_words):
         best_clue = None
         best_score = float('-inf')
@@ -39,6 +46,7 @@ class Spymaster:
         for v in vocab:
             if v not in self.model:
                 continue
+            # Calculates consine similarity between two words
             similar_to_team = sum(self.model.similarity(v, team_word) for team_word in team_words)
             similar_to_bad = sum(self.model.similarity(v, bad_word) for bad_word in bad_words)
             # Score for every word in vocab
