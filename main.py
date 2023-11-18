@@ -18,8 +18,8 @@ def play_game():
     print("-----OPTIONS-----")
     print("[pgb]: prints the guesser's board")
     print("[psb]: prints the spymaster's board")
-    print("[clue red]: prints the spymaster's red clue and the intended number")
-    print("[clue blue]: prints the spymaster's blue clue and the intended number")
+    print("[red clue]: prints the spymaster's red clue and the intended number")
+    print("[blue clue]: prints the spymaster's blue clue and the intended number")
     print("[guess (your team) (your word)]: make a guess on the board")
     print("[end]: ends game")
     print("\n")
@@ -30,11 +30,11 @@ def play_game():
             board.print_guesser_board()
         elif user_input[0] == "psb":
             board.print_spymaster_board()
-        elif user_input[0] == "clue" and user_input[1] == "red":
+        elif user_input[0] == "red" and user_input[1] == "clue":
             red_clue, red_number = red_spymaster.generate_clue_and_number()
             text = "Red Clue: {clue}, {number} words"
             print(text.format(clue=red_clue, number=red_number))
-        elif user_input[0] == "clue" and user_input[1] == "blue":
+        elif user_input[0] == "blue" and user_input[1] == "clue":
             blue_clue, blue_number = blue_spymaster.generate_clue_and_number()
             text = "Blue Clue: {clue}, {number} words"
             print(text.format(clue=blue_clue, number=blue_number))
