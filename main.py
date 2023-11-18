@@ -2,34 +2,50 @@ from board import Board
 from spymaster import Spymaster
 from guesser import Guesser
 
-board = Board()
-
-def choose_team():
-    invalid_input = True
-    while(invalid_input):
-        invalid_input = False
-        user_team = input("Choose team red [r] or blue [b]: ")
-        if user_team == 'r':
-            print("You have picked Red team")
-            return 'red'
-        elif user_team == 'b':
-            print("You have picked Blue team")
-            return 'blue'
-        else:
-            print('Invalid input team')
-            invalid_input = True
-
-
 def play_game():
     print("_______________________________")
     print("-----Starting Codenames AI-----")
     print("_______________________________")
+    print("\n")
 
-    play = True
+    #Initialize game players and board
+    board = Board()
+    red_spymaster = Spymaster('red', board)
+    blue_spymaster = Spymaster('blue', board)
+    red_guesser = Guesser('red', board)
+    blue_guesser = Guesser('blue', board)
 
-    while(play):
-        pass
+    print("-----OPTIONS-----")
+    print("[pgb]: prints the guesser's board")
+    print("[psb]: prints the spymaster's board")
+    print("[clue red]: prints the spymaster's red clue and the intended number")
+    print("[clue blue]: prints the spymaster's blue clue and the intended number")
+    print("[guess (your team) (your word)]: make a guess on the board")
+    print("[end]: ends game")
+    print("\n")
+
+    while(True):
+        user_input = input(">>> ").split(" ")
+        if user_input[0] == "pgb":
+            board.print_guesser_board()
+        elif user_input[0] == "psb":
+            board.print_spymaster_board()
+        elif user_input[0] == "clue" and user_input[1] == "red":
+            red_clue, red_number = red_spymaster.generate_clue_and_number()
+            text = "Red Clue: {clue}, {number} words"
+            print(text.format(clue=red_clue, number=red_number))
+        elif user_input[0] == "clue" and user_input[1] == "blue":
+            blue_clue, blue_number = blue_spymaster.generate_clue_and_number()
+            text = "Blue Clue: {clue}, {number} words"
+            print(text.format(clue=blue_clue, number=blue_number))
+        elif user_input[0] == "guess" and user_input[1] == "red" and user_input[2] != None:
+            red_guesser.make_guess(user_input[2])
+        elif user_input[0] == "guess" and user_input[1] == "blue" and user_input[2] != None:
+            blue_guesser.make_guess(user_input[2])
+        elif user_input[0] == "end":
+            break
+        else:
+            print("Invalid input please try again")
 
 if __name__ == "__main__":
-    choose_team()
     play_game()

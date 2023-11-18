@@ -10,6 +10,7 @@ model = gensim.models.KeyedVectors.load_word2vec_format('C:/Users/nguye/Download
 class Board():
     def __init__(self):
         self.board = self.initialize_board()
+        self.all_words = self.all_words()
         self.model = model
 
     def get_board_words(self):
@@ -30,6 +31,13 @@ class Board():
         assassin_word.append(str(self.get_board_words()[17]))
         board['assassin'] = assassin_word
         return board
+
+    def all_words(self):
+        all_words = []
+        board = self.board
+        for key, value in board.items():
+            all_words.extend(value)
+        return all_words
 
     def print_guesser_board(self):
         all_words = [words for array in self.board.values() for words in array]
