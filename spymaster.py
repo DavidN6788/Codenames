@@ -8,6 +8,7 @@ class Spymaster:
         self.curr_board = board.board
         self.team = 'red' if team == 'red' else 'blue'
         self.enemy = 'blue' if self.team == 'red' else 'red'
+        self.clues = []
 
     # Generate best clue and the number of intended words
     def generate_clue_and_number(self):
@@ -30,7 +31,7 @@ class Spymaster:
                 #convert to lower case
                 curr_word = term[0].lower()
                 # Ignore actual team word and any morphological form of word
-                if team_word in curr_word:
+                if team_word in curr_word or curr_word in team_word:
                     continue
                 # Check if word is a single word and not in vocab
                 if re.match(r"^\w+$", curr_word) and curr_word not in vocab and "_" not in curr_word:
@@ -44,6 +45,9 @@ class Spymaster:
         best_score = float('-inf')
         # Iterate through each vocab and find sum of team words and bad words
         for v in vocab:
+            # If word in vocab is already given as clue
+            if v in self.clues:
+                continue
             if v not in self.model:
                 continue
             # Calculates consine similarity between two words
@@ -54,6 +58,6 @@ class Spymaster:
             if similarity_score > best_score:
                 best_clue = v
                 best_score = similarity_score
-        # Remove clue from vocab to avoid duplicate clues
-        vocab.remove(best_clue)
+        # Add best clue from vocab to avoid duplicate clues
+        self.clues.append(best_clue)
         return best_clue
