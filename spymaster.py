@@ -31,7 +31,7 @@ class Spymaster:
                 #convert to lower case
                 curr_word = term[0].lower()
                 # Ignore actual team word and any morphological form of word
-                if team_word in curr_word or curr_word in team_word:
+                if team_word in curr_word or curr_word in team_word or team_word == curr_word:
                     continue
                 # Check if word is a single word and not in vocab
                 if re.match(r"^\w+$", curr_word) and curr_word not in vocab and "_" not in curr_word:
