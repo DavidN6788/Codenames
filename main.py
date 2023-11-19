@@ -21,6 +21,7 @@ def play_game():
     print("[red clue]: prints the spymaster's red clue and the intended number")
     print("[blue clue]: prints the spymaster's blue clue and the intended number")
     print("[guess (your team) (your word)]: make a guess on the board")
+    print("[remaining]: print remaining team words left on board")
     print("[end]: ends game")
     print("\n")
 
@@ -42,6 +43,10 @@ def play_game():
             red_guesser.make_guess(user_input[2])
         elif user_input[0] == "guess" and user_input[1] == "blue" and user_input[2] != None:
             blue_guesser.make_guess(user_input[2])
+        elif user_input[0] == "remaining":
+            reds_left, blues_left = board.red_blue_left()
+            text = "Red words left: {reds}, Blue words left: {blues}"
+            print(text.format(reds=reds_left, blues=blues_left))
         elif user_input[0] == "end":
             break
         else:

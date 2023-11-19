@@ -39,6 +39,11 @@ class Board():
             all_words.extend(value)
         return all_words
 
+    def red_blue_left(self):
+        reds_left = sum(1 for words in self.board.get("red", []) if words != "------")
+        blues_left = sum(1 for words in self.board.get("blue", []) if words != "------")
+        return reds_left, blues_left
+
     def print_guesser_board(self):
         all_words = [words for array in self.board.values() for words in array]
         random.shuffle(all_words)
