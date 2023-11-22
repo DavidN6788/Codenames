@@ -16,8 +16,8 @@ class Board():
     def get_board_words(self):
         with open('words.txt', 'r') as file:
             words = file.read().split()
-            # Check if word is in word2vec model
-            model_words = [word for word in words if word in model]
+            # Check if word is in word2vec model and remove duplicates
+            model_words = list(set([word for word in words if word in model]))
             random_words = random.sample(model_words, 25)
             random.shuffle(random_words)
         return random_words
