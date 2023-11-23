@@ -23,13 +23,14 @@ class Board():
         return random_words
 
     def initialize_board(self):
+        words = self.get_board_words()
+        random.shuffle(words)
+
         board = {}
-        assassin_word = []
-        board['red'] = self.get_board_words()[:8]
-        board['blue'] = self.get_board_words()[8:17]
-        board['neutral'] = self.get_board_words()[18:25]
-        assassin_word.append(str(self.get_board_words()[17]))
-        board['assassin'] = assassin_word
+        board['red'] = words[:8]
+        board['blue'] = words[8:17]
+        board['neutral'] = words[18:25]
+        board['assassin'] = [words[17]]
         return board
 
     def all_words(self):
