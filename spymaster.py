@@ -16,8 +16,8 @@ class Spymaster:
         bad_words = self.curr_board.get(self.enemy) + self.curr_board.get('neutral') + self.curr_board.get('assassin')
         vocab = self.get_word2vec_vocab(team_words)
 
-        # For now sum of similarity algorithm and random generator intended words (1, 2, or 3)
-        best_clue = self.sum_of_similarity_algo(vocab, team_words, bad_words)
+        # For now word coverage heuristic algorithm and random generator intended words (1, 2, or 3)
+        best_clue = self.word_coverage_heuristic_algo(vocab, team_words, bad_words)
         best_number = random.choice([1, 2, 3])
         return best_clue, best_number
 
@@ -40,7 +40,7 @@ class Spymaster:
 
     # Simple algorithm to generate a clue that encapsulates all team words
     # whilst avoiding all bad words.
-    def sum_of_similarity_algo(self, vocab, team_words, bad_words):
+    def word_coverage_heuristic_algo(self, vocab, team_words, bad_words):
         best_clue = None
         best_score = float('-inf')
         # Iterate through each vocab and find sum of team words and bad words
