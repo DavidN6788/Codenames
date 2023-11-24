@@ -17,8 +17,7 @@ class Spymaster:
         vocab = self.get_word2vec_vocab(team_words)
 
         # For now word coverage heuristic algorithm and random generator intended words (1, 2, or 3)
-        best_clue = self.word_coverage_heuristic_algo(vocab, team_words, bad_words)
-        best_number = random.choice([1, 2, 3])
+        best_clue, best_number = self.word_coverage_heuristic_algo(vocab, team_words, bad_words)
         return best_clue, best_number
 
     def get_word2vec_vocab(self, team_words):
@@ -30,8 +29,8 @@ class Spymaster:
             for term in related_words:
                 #convert to lower case
                 curr_word = term[0].lower()
-                # Ignore actual team word and any morphological form of word
-                if team_word in curr_word or curr_word in team_word or team_word == curr_word:
+                # Exclude words from team_words and their variants
+                if curr_word in team_words or any(team_word in curr_word for team_word in team_words):
                     continue
                 # Check if word is a single word and not in vocab
                 if re.match(r"^\w+$", curr_word) and curr_word not in vocab and "_" not in curr_word:
@@ -60,4 +59,5 @@ class Spymaster:
                 best_score = similarity_score
         # Add best clue from vocab to avoid duplicate clues
         self.clues.append(best_clue)
-        return best_clue
+        best_number = random.choice([1, 2, 3])
+        return best_clue, best_number
