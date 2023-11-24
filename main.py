@@ -33,11 +33,11 @@ def play_game():
             board.print_spymaster_board()
         elif user_input[0] == "red" and user_input[1] == "clue":
             red_clue, red_number = red_spymaster.generate_clue_and_number()
-            text = "Red Clue: {clue}, {number} words"
+            text = "Red Clue: {clue}, {number} word(s)"
             print(text.format(clue=red_clue, number=red_number))
         elif user_input[0] == "blue" and user_input[1] == "clue":
             blue_clue, blue_number = blue_spymaster.generate_clue_and_number()
-            text = "Blue Clue: {clue}, {number} words"
+            text = "Blue Clue: {clue}, {number} word(s)"
             print(text.format(clue=blue_clue, number=blue_number))
         elif user_input[0] == "guess" and user_input[1] == "red" and user_input[2] != None:
             red_guesser.make_guess(user_input[2])
