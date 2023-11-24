@@ -10,6 +10,7 @@ model = gensim.models.KeyedVectors.load_word2vec_format('C:/Users/nguye/Download
 class Board():
     def __init__(self):
         self.board = self.initialize_board()
+        self.board_copy = copy.deepcopy(self.board)
         self.all_words = self.all_words()
         self.model = model
 
@@ -54,7 +55,7 @@ class Board():
 
     def print_spymaster_board(self):
         # Create a deep copy so that the display does not change
-        board_copy = copy.deepcopy(self.board)
+        board_copy = self.board_copy
         all_words = [f"'{word} ({key})'" for key, value in board_copy.items() for word in value]
         board_words = np.array(all_words).reshape(5, 5).copy()
         table = tabulate(board_words, tablefmt="fancy_grid")
