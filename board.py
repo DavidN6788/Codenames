@@ -54,10 +54,6 @@ class Board():
         print(table)
 
     def print_spymaster_board(self):
-        # Create a deep copy so that the display does not change
         board_copy = self.board_copy
-        all_words = [f"'{word} ({key})'" for key, value in board_copy.items() for word in value]
-        board_words = np.array(all_words).reshape(5, 5).copy()
-        table = tabulate(board_words, tablefmt="fancy_grid")
-        print(table)
-
+        for key, value in board_copy.items():
+            print(f"{key}: {value}")
